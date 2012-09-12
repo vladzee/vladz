@@ -15,4 +15,11 @@
 		<nature>org.eclipse.jdt.groovy.core.groovyNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>org</name>
+			<type>2</type>
+			<location>/home/vladz/git/CloudifySource/cloudify/dsl/src/main/java/org</location>
+		</link>
+	</linkedResources>
 </projectDescription>

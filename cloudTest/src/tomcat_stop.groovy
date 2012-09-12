@@ -1,13 +1,17 @@
 import org.cloudifysource.dsl.context.ServiceContextFactory
 println "tomcat_stop.groovy: About to stop tomcat..."
 
-def serviceContext = ServiceContextFactory.getServiceContext()
+//def serviceContext = ServiceContextFactory.getServiceContext()
 
-def instanceID=serviceContext.instanceId
-def home= serviceContext.attributes.thisInstance["home"]
+//def instanceID=serviceContext.instanceId
+def instanceID = 0
+// def home= serviceContext.attributes.thisInstance["home"]
+def home = "/home/vladz/git/vzee/cloudTest/apache-tomcat-7.0.23"
 println "tomcat_stop.groovy: tomcat(${instanceID}) home ${home}"
 
-def script= serviceContext.attributes.thisInstance["script"]
+//def script= serviceContext.attributes.thisInstance["script"]
+def script= "${home}/bin/catalina"
+
 if (script) {
 println "tomcat_stop.groovy: tomcat(${instanceID}) script ${script}"
 

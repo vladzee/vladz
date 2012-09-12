@@ -1,17 +1,21 @@
 import org.cloudifysource.dsl.context.ServiceContextFactory
 import java.util.concurrent.TimeUnit
 
-def config=new ConfigSlurper().parse(new File("tomcat-service.properties").toURL())
+def config=new ConfigSlurper().parse(new File("src/tomcat-service.properties").toURL())
 
 println "tomcat_start.groovy: Calculating mongoServiceHost..."
-def serviceContext = ServiceContextFactory.getServiceContext()
-def instanceID = serviceContext.getInstanceId()
+//def serviceContext = ServiceContextFactory.getServiceContext()
+//def instanceID = serviceContext.getInstanceId()
+def instanceID = 0 // from tomcat_install
 println "tomcat_start.groovy: This tomcat instance ID is ${instanceID}"
 
-def home= serviceContext.attributes.thisInstance["home"]
-println "tomcat_start.groovy: tomcat(${instanceID}) home ${home}"
+//def home= serviceContext.attributes.thisInstance["home"]
+def home = "${config.name}"
 
-def script= serviceContext.attributes.thisInstance["script"]
+//println "tomcat_start.groovy: tomcat(${instanceID}) home ${home}"
+
+// from tomcat_install.groovy
+def script= "${home}/bin/catalina"  // serviceContext.attributes.thisInstance["script"]
 println "tomcat_start.groovy: tomcat(${instanceID}) script ${script}"
 
 if ( "${config.dbServiceName}"!="NO_DB_REQUIRED" ) {
@@ -33,9 +37,10 @@ else {
 println "tomcat_start.groovy executing ${script}"
 
 portIncrement = 0
-if (serviceContext.isLocalCloud()) {
-  portIncrement = instanceID - 1  
-}
+//if (serviceContext.isLocalCloud()) {
+  portIncrement = instanceID - 1 
+//portIncrement = instanceID + 1
+//}
 
 currJmxPort=config.jmxPort+portIncrement
 println "tomcat_start.groovy: jmx port is ${currJmxPort}"
